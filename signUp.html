@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Glassmorphism login Form Tutorial in html css</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form>
+        <h3>Sign Up</h3>
+        <label for="username">Email</label>
+        <input type="text" placeholder="Email" id="rusername">
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="rpassword">
+        <button id="signUpBtn">Sign Up</button>
+    </form>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBErbVYgilUK247w3EgdBdr5Qj-gijYLRo",
+            authDomain: "fir-c8fb4.firebaseapp.com",
+            projectId: "fir-c8fb4",
+            storageBucket: "fir-c8fb4.appspot.com",
+            messagingSenderId: "520984817058",
+            appId: "1:520984817058:web:05fe9a548da615597a96fb",
+            measurementId: "G-BB7QM5E8QY"
+        };
+
+        const firebaseApp = initializeApp(firebaseConfig);
+        const auth = getAuth(firebaseApp);
+        const db = getFirestore(firebaseApp);
+        const signUpBtn = document.getElementById('signUpBtn');
+        signUpBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            const email = document.getElementById('rusername').value;
+            const password = document.getElementById('rpassword').value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    const userData = {
+                        email: email,
+                        password: password
+                    };
+                    console.log("User signed up successfully!")
+                    window.location.href = 'index.html';
+                })
+        });
+    </script>
+</body>
+</html>
